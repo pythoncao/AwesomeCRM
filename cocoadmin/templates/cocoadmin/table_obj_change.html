@@ -1,0 +1,22 @@
+{% extends 'cocoadmin/index.html' %}
+{% load cocoadmin_tags %}
+
+
+{% block right-content-container %}
+
+    <h2 class="page-header">{% get_model_name admin_class %}</h2>
+    <ol class="breadcrumb">
+      <li><a href="/cocoadmin">Home</a></li>
+      <li><a href="#">{{ app_name }}</a></li>
+      <li><a href="/cocoadmin/{{ app_name }}/{{ model_name }}">{% get_model_verbose_name admin_class %}</a></li>
+
+      <li class="active">{{ form_obj.instance }}</li>
+    </ol>
+    <h4 class="page-header">修改{{ form_obj.instance }}</h4>
+
+
+    <div>
+       {% include 'cocoadmin/table_obj_change_component.html' %}
+
+    </div>
+{% endblock %}

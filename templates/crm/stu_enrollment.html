@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+
+{% block right_content_container %}
+<h3>客户报名</h3>
+
+
+    <form class="form-horizontal" method="post">{% csrf_token %}
+      <div class="form-group">
+        <label class="col-sm-2 control-label">客户</label>
+        <div class="col-sm-10">
+            <select name="customer_id" class="form-control" >
+                {% for customer in customers %}
+                    <option value="{{ customer.id }}">{{ customer }}</option>
+                {% endfor %}
+            </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword3" class="col-sm-2 control-label">报名班级</label>
+        <div class="col-sm-10">
+          <select name="class_grade_id" class="form-control" >
+                {% for class_grade in class_lists %}
+                <option value="{{ class_grade.id }}">{{ class_grade }}</option>
+                {% endfor %}
+            </select>
+        </div>
+      </div>
+
+        {%if not enrollment_link %}
+        <input type="submit" class="btn btn-info pull-right" value="下一步"/>
+        {% endif %}
+    </form>
+
+
+    {% if enrollment_link %}
+         <p>生成链接{{ enrollment_link }}</p>
+    {% endif %}
+
+
+{% endblock %}

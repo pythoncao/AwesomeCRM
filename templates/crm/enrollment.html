@@ -1,0 +1,83 @@
+{% extends 'index.html' %}
+{% block extra-css %}
+    <link rel="stylesheet" href="/static/plugins/dropzone/dropzone.css">
+{% endblock %}
+
+
+{% block body%}
+    <div class="container">
+      <h3>客户报名</h3>
+
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">在线报名</h3>
+            </div>
+          <div class="panel-body">
+          <form class="" onsubmit="return BeforeFormSubmit(this)" method="post">{% csrf_token %}
+            {%for field in customer_form %}
+              <div class="form-group col-sm-6">
+                <label class="col-sm-2 control-label">{{ field.label }}</label>
+                <div class="col-sm-10">
+                 {{ field }}
+                </div>
+              </div>
+
+            {% endfor %}
+              <div class="form-group col-sm-6">
+                <label class="col-sm-2 control-label">报名班级</label>
+                <div class="col-sm-10">
+                 {{ enrollment_obj.class_grade }}
+                </div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="col-sm-2 control-label">费用</label>
+                <div class="col-sm-10">
+                 {{ enrollment_obj.class_grade.course.price }}
+                </div>
+                  <hr>
+
+                    <pre>{{ enrollment_obj.class_grade.contract_template.content }}</pre>
+                  <input type="checkbox" name="contract_agreeed">同意
+
+
+
+              </div>
+                <input type="submit" class="btn btn-success">
+            </form>
+
+
+
+
+
+
+
+          </div>
+        <form action="{% url 'enrollment_fileupload' enrollment_obj.id %}" class="dropzone">
+              <div class="fallback">
+                <input name="file" type="file" multiple />
+              </div>
+          </form>
+
+          <div class="panel-footer">Panel footer</div>
+        </div>
+
+    </div>
+
+    <script>
+        function BeforeFormSubmit(ele) {
+            $(":disabled").removeAttr("disabled")
+        }
+
+
+
+
+    </script>
+
+
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="/static/plugins/dropzone/dropzone.js"></script>
+{% endblock %}
